@@ -1,0 +1,22 @@
+{
+  "name": "laptopshop_vuejs",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vuepic/vue-datepicker": "^7.4.0",
+    "axios": "^1.5.1",
+    "chart.js": "^4.4.0",
+    "mitt": "^3.0.1",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.3.4",
+    "vite": "^4.4.9"
+  }
+}

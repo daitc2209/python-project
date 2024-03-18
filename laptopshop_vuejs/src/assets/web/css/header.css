@@ -1,0 +1,215 @@
+@charset "UTF-8";
+
+.top-navbar {
+	background-color: #a9a9a926;
+}
+
+.top-navbar .container-fluid {
+	max-width: 1440px;
+	width: 100%; 
+	height: 9vh;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	justify-content: space-between;
+}
+
+
+
+.top-icons i {
+	font-size: 20px;
+	color: #1c1c50;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.other-links {
+	margin-right: 33px;
+	display: inherit;
+	z-index: 99;
+}
+
+.other-links i {
+	color: #1c1c50;
+	font-size: 20px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+#btn-login {
+	width: 100px;
+	border: 2px solid #1c1c50;
+	color: #1c1c50;
+	font-weight: bold;
+	border-radius: 5px;
+	height: 5vh;
+	transition: 0.5s ease;
+	cursor: pointer;
+}
+
+#btn-login a {
+	text-decoration: none;
+	color: #1c1c50;
+	transition: 0.5s ease;
+}
+
+#btn-login a:hover {
+	background-color: #1c1c50;
+	color: white;
+}
+
+#btn-login:hover {
+	background-color: #1c1c50;
+	color: white;
+}
+
+#btn-signup {
+	width: 100px;
+	border: 2px solid #1c1c50;
+	color: #1c1c50;
+	font-weight: bold;
+	border-radius: 5px;
+	height: 5vh;
+	transition: 0.5s ease;
+	cursor: pointer;
+}
+
+#btn-signup a {
+	text-decoration: none;
+	color: #1c1c50;
+	transition: 0.5s ease;
+}
+
+#btn-signup a:hover {
+	background-color: #1c1c50;
+	color: white;
+}
+
+#btn-signup:hover {
+	background-color: #1c1c50;
+	color: white;
+}
+
+.shop-name{
+	color: #1c1c50;
+	font-weight: 700;
+	margin-right: 20px;
+	
+}
+
+.header__navbar-list{
+    list-style-type: none;
+    padding-left: 0;
+    margin: 4px 0 0 0;
+    display: flex;
+}
+.header__navbar-item{
+    margin: 0 8px;
+    position: relative;
+    min-height: 26px;
+	display: inline-flex;
+	cursor: pointer;
+}
+/* User */
+.header__navbar-user{
+    display: flex;
+    justify-items: center;
+    position: relative;
+}
+
+.header__navbar-user:hover
+.header__navbar-user-menu{
+    display: block;
+}
+
+.header__navabar-user-img{
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.header__navbar-user-name{
+    margin-left: 4px;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.header__navbar-user-menu{
+    z-index: 1;
+    position: absolute;
+    width: 190px;
+    padding-left: 0;
+    top: calc(100% + 6px);
+    right: 0;
+    border-radius: 2px;
+    background-color: #fff;
+    list-style: none;
+    box-shadow: 0 1px 2px #e0e0e0;
+    display: none;
+}
+
+.header__navbar-user-menu::before{
+    content: "";
+    position: absolute;
+    border-width: 18px 26px;
+    border-style: solid;
+    /* transparent: trong suốt 3 cạnh và 1 cạnh màu trắng */
+    /* top right bottom left */
+    border-color: transparent transparent #fff transparent;
+    right: 4px;
+    top: -29px;
+}
+.header__navbar-user-menu::after{
+    content: "";
+    position: absolute;
+    display: block;
+    top: -8px;
+    right: 0;
+    width: 56%;
+    height: 8px;
+}
+
+.header__navbar-user-item--separate{
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.header__navbar-user-item a{
+    font-size: 18px;
+    text-decoration: none;
+    color: #000;
+    padding: 8px 16px;
+    /* để cho nó có thể dùng được padding margin .... */
+    display: block;
+}
+
+.header__navbar-item,
+.header__navbar-item-link{
+    display: inline-flex;
+    align-items: center;
+}
+@media only screen and (max-width: 1024px) {
+	/*-- Code cho màn hình vừa (Table) viết ở đây --*/
+}
+
+@media only screen and (max-width: 640px) {
+	.top-icons {
+		margin-left: 30px;
+	}
+	.top-icons i {
+		font-size: 15px;
+	}
+	.other-links i {
+		font-size: 15px;
+	}
+	#btn-login {
+		width: 50px;
+		height: 3vh;
+		font-size: 10px;
+	}
+	#btn-signup {
+		width: 50px;
+		height: 3vh;
+		font-size: 10px;
+	}
+}

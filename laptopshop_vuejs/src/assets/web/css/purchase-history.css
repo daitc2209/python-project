@@ -1,0 +1,130 @@
+@charset "UTF-8";
+.purchase-history {
+	margin-bottom: 20px;
+}
+.purchase-history table{
+	width: 100%;
+	min-width: 480px;
+	border: 1px solid #ebebeb;
+}
+.purchase-history table tr th {
+	font-size: 16px;
+	color: #252525;
+	font-weight: 700;
+	border-bottom: 1px solid #ebebeb;
+	text-align: center;
+	padding: 18px 0 19px;
+	background: #ebebeb;
+}
+.purchase-history table tr td h5 {
+	text-align: center;
+}
+.purchase-history table tbody tr:hover {
+	background: #ebebeb;
+}
+.purchase-history table tr td {
+	text-align: center;
+	padding: 10px 0;
+	border-bottom: 1px solid #ebebeb;
+}
+
+.purchase-history table .td8{
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+
+.order-container{
+	display: flex;
+}
+.purchase-history__order{
+	box-shadow: unset;
+    border-radius: 8px;
+}
+.purchase-history__order-container{
+	display: flex;
+	justify-content: space-around;
+	padding-bottom: 15px;
+	background-color: #F4F6F8;
+}
+.content-item{
+	margin-top: 15px;
+    justify-content: flex-start;
+    width: 100%;
+	text-align: center;
+}
+.content-item:first-of-type{
+	border-right: 1px solid #111;
+}
+.item-content{
+	padding-top: 10px;
+}
+.item-content.title{
+	font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}	
+.item-content.title p{
+	color: #111;
+    line-height: 17px;
+}
+
+/* Order Status */
+.order-container__status{
+    width: 100%;
+    overflow: auto;
+    padding: 10px 0 ;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 64px;
+    background-color: #f4f6f8;
+	margin-bottom: 10px;
+    /* z-index: 10; */
+}
+.order-status{
+	display: flex;
+	grid-gap: 10px;
+    gap: 10px;
+	width: fit-content;
+    padding: 5px 10px;
+    margin: auto;
+}
+.order-status__item{
+	font-size: 18px;
+	padding: 7px 15px;
+    border: 1px solid #eaedef;
+    border-radius: 5px;
+    white-space: nowrap;
+    background-color: #fff;
+    cursor: pointer;
+}
+.order-status__item.active{
+	background-color: #1c1c50;
+	color: #fff;
+}
+
+.order-range{
+	display: flex;
+	justify-content: end;
+	margin: 10px 0 !important;
+}
+.order-date{
+	display: inline-flex;
+	align-items: center;
+	margin-right: 20px;
+}
+.order-date:first-of-type{
+	justify-content: start;
+}
+.order-range__from{
+    font-weight: 700;
+	margin-right: 10px;
+}
+.date-picker{
+	width: calc(100%-30%);
+}
+@media only screen and (max-width: 1024px) {
+}
+
+@media only screen and (max-width: 640px) {
+}

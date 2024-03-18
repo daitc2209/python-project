@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+
+  db:
+    image: mongo:latest
+    restart: unless-stopped
+    ports: 
+      - "27017:27017"
+    volumes:
+      - ./database-data:/data/db
+
+  backend:
+    build:
+      context: ./todo_project
+      dockerfile: ./Dockerfile
+    # image: backend/laptopshop
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./todo_project:/code
+
+  frontend:
+    build:
+      context: ./laptopshop_vuejs
+      dockerfile: ./Dockerfile
+    # image: fontend/laptopshop
+    # command:
+    #   - /bin/sh
+    #   - -c
+    #   - while true; do sleep 2; done
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./laptopshop_vuejs:/app
+      - /app/node_modules/
