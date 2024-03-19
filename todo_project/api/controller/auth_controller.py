@@ -32,6 +32,10 @@ async def is_exist_user(user:User):
     return user
 
 async def sign_up(user:User):
+    check_email = db.find_one({"email":user.email})
+    check_username = db.find_one({"username":user.username})
+    if check_email or check_username:
+        raise HTTPException(401, "exist email or username !!")
     hash_pw = get_pw_hash(user.password)
     user.password = hash_pw
     user = User(

@@ -24,29 +24,24 @@ const productApi = {
         return res.data
     },
 
-    getListProduct: async (page,search) =>{
-        const res = await axios.get(`admin/product`, 
-            {params: {page:page,search_text:search.search_text, categoryId:search.categoryId,brandId:search.brandId}})
+    getListProduct: async (search_text) =>{
+        const res = await axios.get(`products`, 
+            {params: {search_text:search_text}})
         return res.data
     },
 
     deleteProduct: async (id) => {
-        const res = await axios.post(`admin/product/delete?id=`+id)
+        const res = await axios.delete(`products/delete/`+id)
         return res.data
     },
 
     addProduct: async (data) => {
-        const res = await axios.post(`admin/product/add`,data)
-        return res.data
-    },
-
-    getEditProduct: async (id) => {
-        const res = await axios.get(`admin/product/edit/${id}`)
+        const res = await axios.post(`products/create`,data)
         return res.data
     },
 
     postEditProduct: async (data) => {
-        const res = await axios.post(`admin/product/edit`,data)
+        const res = await axios.patch(`products/${data._id}`,data)
         return res.data
     },
 

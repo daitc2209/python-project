@@ -59,7 +59,7 @@ async def update_product(Id: str, product_patch:dict = Body(...)):
             "product updated to": product
         }
     
-@router_product.delete("/{Id:str}", dependencies=[Depends(admin)])
+@router_product.delete("/delete/{Id:str}", dependencies=[Depends(admin)])
 async def delete_product(Id: str):
     product = await product_controller.delete_product(Id)
     id = str(product['_id'])

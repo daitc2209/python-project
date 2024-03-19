@@ -34,19 +34,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="order-range">
-					<!-- <div class="order-date">
-						<label class="order-range__from" for="startDate">Từ </label>
-						<div class="date-picker">
-							<VueDatePicker v-model="startDate" format="yyyy-MM-dd"></VueDatePicker>
-						</div>
-					</div>
-					<div class="order-date">
-						<label class="order-range__from" for="endDate">Đến </label>
-						<VueDatePicker v-model="endDate" format="yyyy-MM-dd"></VueDatePicker>
-					</div>
-					<button class="order-range__btn btn btn-primary" @click="search">Tìm kiếm</button> -->
-				</div> 
 				<div class="order-container__status">
 					<div class="order-status">
 						<button @click="getOrderByStatus(5)" id="btn-5" class="order-status__item active">Tất cả</button>
@@ -56,7 +43,7 @@
 						<button @click="getOrderByStatus(3)" id="btn-3" class="order-status__item">Đã giao</button>
 						<button @click="getOrderByStatus(4)" id="btn-4" class="order-status__item">Đã hủy</button>
 					</div>
-				</div>
+				</div> 
 				<!-- <h3 class="text-center mb-4">Danh sách đơn hàng</h3> -->
 				<table>
 					<thead>

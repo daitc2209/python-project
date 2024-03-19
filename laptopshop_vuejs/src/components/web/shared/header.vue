@@ -17,7 +17,7 @@
                                 <li class="header__navbar-user-item">
                                     <a href="/user/profile" class="header__navbar-item-link">Tài khoản của tôi</a>
                                 </li>
-								<li v-if  ="isAuthenticated == 'ROLE_ADMIN'" class="header__navbar-user-item">
+								<li v-if  ="isAuthenticated == 'admin'" class="header__navbar-user-item">
                                     <a href="/admin/home" class="header__navbar-item-link">Trang quản trị</a>
                                 </li>
                                 <li class="header__navbar-user-item">
@@ -43,8 +43,6 @@
 </template>
 
 <script>
-import userApi from '../../../service/User'
-import axios from 'axios';
 export default {
 	data() {
 		return {

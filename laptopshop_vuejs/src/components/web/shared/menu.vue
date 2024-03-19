@@ -92,7 +92,7 @@ export default {
 		async searchText1() {
 			if(this.searchText=="" || this.searchText==null)
 				this.hasResults = false
-			
+			 
 			const res = await searchApi.Search({
 				params: {
 					term: this.searchText
@@ -100,7 +100,7 @@ export default {
 			})
 			if(res != null)
 			{
-				this.searchResults = res.data.listSearch;
+				this.searchResults = res.data;
 				this.hasResults = true;
 			}
 

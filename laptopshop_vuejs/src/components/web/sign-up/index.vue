@@ -53,7 +53,7 @@ export default {
 		return {
 			showPreload: false,
 			user: {
-				fullname: '',
+				name: '',
 				email: '',
 				username: '',
 				password: '',
@@ -73,7 +73,7 @@ export default {
 		},
 		async signUp(){
 			try{
-				if(this.user.fullname != "" || this.user.username != "" || this.user.email !="" || this.user.password != "" || this.user.address != "")
+				if(this.user.name != "" || this.user.username != "" || this.user.email !="" || this.user.password != "" || this.user.address != "")
 				{
 					if (this.user.password !== this.user.confirm_password) {
 						this.error = 'Mật khâu không trùng nhau';
@@ -105,14 +105,15 @@ export default {
 				{
 					var token = urlParam.searchParams.get("token");
 					const res = await userApi.verify(token)
-					if (res.success)
-						this.success = res.success
-					if (res.error)
-						this.error = res.error
+					if (res.status)
+						this.success = res.status
+					if (res.detail)
+						this.error = res.detail
 				}
 			}		
 			catch(err) {
 				console.log("err: "+err)
+				this.error = "Tài khoản hoặc email đã tồn tại"
 			}
 				
 		},

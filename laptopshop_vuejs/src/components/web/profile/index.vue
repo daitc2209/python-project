@@ -35,7 +35,6 @@
 								<div class="profile-form__feild"><label class="profile-form__name" for="">Họ và tên</label> <input class="profile-form__feild-item" type="text" v-model="profile.name" disabled="disabled" title="Tên"></div>
 								<div class="profile-form__feild"><label class="profile-form__name" for="">Email</label> <input class="profile-form__feild-item" type="email" v-model="profile.email" disabled="disabled" title="Email"></div>
 								<div class="profile-form__feild"><label class="profile-form__name" for="">Địa chỉ</label> <input class="profile-form__feild-item" type="text" v-model="profile.address" disabled="disabled" title="Địa chỉ"></div>
-								<div class="profile-form__feild"><label class="profile-form__name" for="">SĐT</label> <input class="profile-form__feild-item" type="text" v-model="profile.phone" disabled="disabled" title="SDT"></div>
 								
 							</div>
 							<div id="login">
@@ -61,17 +60,7 @@
 		      <div class="modal-body">
 		        	<section class="container">
 					<div class="row">
-						<div class="col-md-4 col-12 p-0" id="side1" @dragover.prevent="onDragover" @dragleave.prevent="onDragleave" @drop.prevent="onDrop">
-							<template v-if="!isDragging">
-								<span v-if="this.url==null || this.url == ''">
-									<img id="image" alt="" :src="this.profile.img" />
-								</span>
-								<span v-else>
-									<img id="image" alt="" :src="this.url" />
-								</span>
-							</template>
-						</div>
-						<div class="col-md-8 col-12 p-0" id="side2">
+						<div class="col-md-12 col-12 p-0" id="side2">
 							<form 
 								class="profile-form " 
 								@submit.prevent="editProfile(profileEdit)" 
@@ -90,10 +79,6 @@
 									<div class="profile-form__feild">
 										<label class="profile-form__name" for="">Địa chỉ</label>
 										<input class="profile-form__feild-item" type="text" v-model="profileEdit.address" >
-									</div>
-									<div class="profile-form__feild">
-										<label class="profile-form__name" for="">SĐT</label>
-										<input class="profile-form__feild-item" title="VD: 0123456789" type="text" v-model="profileEdit.phone" >
 									</div>
 									<!-- <input hidden="" type="text" v-model="profileEdit.img" > 
 									<div class="profile-form__feild">

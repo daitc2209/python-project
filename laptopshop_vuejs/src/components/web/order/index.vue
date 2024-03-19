@@ -58,7 +58,6 @@
 										<label>Hình thức thanh toán <span>*</span></label> 
 										<select class="form-control form-select" @change="typePAY()" name="typePayment" id="drTypePayment" required="required">
 											<option value="COD">Thanh toán khi nhận hàng (COD)</option>
-											<option value="TRANSFER">Cổng thanh toán VNPAY</option>
 										</select>
 									</div>
 								</div>

@@ -5,6 +5,8 @@ from api.config.db import myOrder, myOrderDetail, myCart, myProduct
 from bson import ObjectId
 from datetime import datetime
 from fastapi import HTTPException
+from pymongo import DESCENDING
+import re
 
 async def post_order(carts: list, data:dict, user:User):
     amount = sum(n['amount'] for n in carts)
@@ -73,7 +75,10 @@ async def get_my_order(status:int, user: User):
 async def total_order(user:User):
     order = myOrder.find({"user_id": str(user['_id'])})
     order_received = myOrder.find({"user_id": str(user['_id']), "state_order": 3})
-    return {"total_order":len(list(order)), "order_received": len(list(order_received))}
+    return {
+        "total_order":len(list(order)),
+        "order_received": len(list(order_received)),
+        }
 
 async def cancelled_my_order(id:str, status:int, user:User):
     order = myOrder.find_one({"_id": ObjectId(id)})
@@ -81,3 +86,49 @@ async def cancelled_my_order(id:str, status:int, user:User):
     myOrder.update_one({'_id':order['_id']},{'$set':order})
     list_order = await get_my_order(status,user)
     return list_order
+
+
+async def get_all_status_order():
+    order_received = myOrder.find({ "state_order": 3})
+    order_cancelled = myOrder.find({ "state_order": 4})
+    order_delivery = myOrder.find({ "state_order": 2})
+    order_confirm = myOrder.find({ "state_order": 1})
+    order_pending = myOrder.find({ "state_order": 0})
+    return {
+        "order_received": len(list(order_received)),
+        "order_cancelled":len(list(order_cancelled)),
+        "order_delivery": len(list(order_delivery)),
+        "order_confirm":len(list(order_confirm)),
+        "order_pending":len(list(order_pending)),
+        }
+
+async def get_all_order(query:dict):
+    search_text = query.get("search_text")
+    sort_by = [("createdAt", DESCENDING)]
+    
+    if search_text:
+        regex = re.compile(f".*{re.escape(search_text)}.*", re.IGNORECASE)
+        orders = myOrder.find({
+            "$or": [
+                {"name": {"$regex": regex}},
+                {"brand": {"$regex": regex}},
+                {"category": {"$regex": regex}}
+            ]
+        }).sort(sort_by)
+    else:
+        orders = myOrder.find().sort(sort_by)
+    order_list = []
+    for order in orders:
+        orderDetail = await get_bill(str(order['_id']))
+        order['orderdetail'] = orderDetail['orderdetail']
+        order["_id"] = str(order["_id"])
+        order_list.append(order)
+    return order_list
+
+async def update_status_order(id:str, status:int):
+    order = myOrder.find_one({"_id": ObjectId(id)})
+    order["state_order"] = status
+    myOrder.update_one({'_id':order['_id']},{'$set':order})
+    return {
+        "status": "success"
+    }

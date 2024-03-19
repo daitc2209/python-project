@@ -27,32 +27,16 @@
 
     <section class="search">
 		<div class="container">
-			<form @submit.prevent="search(1,formSearchProduct)">
+			<form @submit.prevent="search(search_text)">
 				<div class="row">
-					<div class="col-6 left px-4">
+					<div class="col-6 left pl-4">
 						<div class="form-group d-flex justify-content-between">
 							<label for="" class="col-form-label">Tìm kiếm</label> 
-							<input type="text" v-model="formSearchProduct.search_text" class="form-control" placeholder="Nhập tên, mô tả">
-						</div>
-						<div class="form-group d-flex justify-content-between">
-							<label for="" class="col-form-label">Danh mục:</label> 
-							<select class="form-control form-select" v-model="formSearchProduct.categoryId">
-								<option selected="selected" value=""></option>
-									<option v-for="item in this.categories" :key="item.id" :value="item.id">{{item.name}}</option>
-							</select>
+							<input type="text" v-model="search_text" class="form-control" placeholder="Nhập tên, mô tả">
 						</div>
 					</div>
-					<div class="col-6 right px-4">
-						<div class="form-group d-flex justify-content-between">
-							<label for="" class="col-form-label">Thương hiệu:</label> 
-							<select class="form-control form-select" v-model="formSearchProduct.brandId">
-								<option selected="selected" value=""></option>
-									<option v-for="item in this.brands" :key="item.id" :value="item.id">{{item.name}}</option>
-							</select>
-						</div>
-					</div>
-					<div class="d-flex justify-content-center pr-4 mb-3">
-						<button class="btn btn-primary px-4">Tìm kiếm</button>
+					<div class="col-6 right pl-4">
+						<button type="submit" class="btn btn-primary px-4">Tìm kiếm</button>
 					</div>
 				</div>
 			</form>
@@ -88,21 +72,19 @@
 						</thead>
 						<tbody>
 							<template v-if="product">
-									<tr :id="'trow_'+item.id" v-for="(item,index) in product" :key="item.id">
+									<tr :id="'trow_'+item._id" v-for="(item,index) in product" :key="item._id">
 										<td class="td1" :text="index + ((currentPage - 1) * 5)">{{ index+1 }}</td>
 										<td class="td2"><img :src='item.img' alt=""></td>
 										<td class="td3"><h6>{{item.name}}</h6></td>
-										<td class="td4"><h6>{{item.categoryName}}</h6></td>
-										<td class="td5"><h6>{{item.brandName}}</h6></td>
+										<td class="td4"><h6>{{item.category}}</h6></td>
+										<td class="td5"><h6>{{item.brand}}</h6></td>
 										<td class="td6"><h6>{{formatCurrency(item.price)}}</h6></td>
 										<td class="td7"><h6>{{item.quantity}}</h6></td>
 										<td class="td8"><h6>{{item.discount}}%</h6></td>
 										<td class="td9"><h6>{{item.description}}</h6></td>
 										<td class="td10">
-											<a v-if="item.state == `ACTIVED`" @click="stateProduct(item.id,1)" class="btn btn-sm btn-confirmed mr-2"><i class="fa-solid fa-eye"></i></a>
-											<a v-else @click="stateProduct(item.id,0)" class="btn btn-sm btn-secondary mr-2"><i class="fa-solid fa-eye-slash"></i></a>
-											<a @click="getEditProduct(item.id)" data-bs-toggle="modal" :data-bs-target="`#edit`+item.id"  class="btn btn-sm btn-primary mr-2"><i class="fa-solid fa-pen-to-square"></i></a> 
-											<a data-bs-toggle="modal" :data-bs-target="'#delete'+ item.id" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
+											<a @click="getEditProduct(item._id)" data-bs-toggle="modal" :data-bs-target="`#edit`+item._id"  class="btn btn-sm btn-primary mr-2"><i class="fa-solid fa-pen-to-square"></i></a> 
+											<a data-bs-toggle="modal" :data-bs-target="'#delete'+ item._id" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash"></i></a>
 										</td>
 									</tr>
 							</template>
@@ -141,17 +123,12 @@
 									
 								</div>
 								<div class="form-group">
-									<label for="">Danh mục</label> 
-									<select v-model="productDtoAdd.categoryName" class="form-control form-select" required="required">										
-										<option v-for="item in categories" :key="item.id" :value="item.name">{{item.name}}</option>
-									</select>									
+									<label for="">Danh mục</label> 										
+										<input type="text" v-model="productDtoAdd.category" class="form-control" required="required" />
 								</div>
 								<div class="form-group">
 									<label for="">Thương hiệu</label> 
-									<select v-model="productDtoAdd.brandName" class="form-control form-select" required="required">				
-										<option v-for="item in brands" :key="item.id" :value="item.name">{{item.name}}</option>
-									</select>
-									
+									<input type="text" v-model="productDtoAdd.brand" class="form-control" required="required" />
 								</div>
 								<div class="form-group">
 									<label for="">Giá</label> 
@@ -175,19 +152,13 @@
 									<input type="hidden" name="quillContent" id="quillContent">
 								</div>
 								<div class="form-group">
-									<label for="">Trạng thái</label> 
-									<select v-model="productDtoAdd.state" class="form-control form-select" required="required">
-										<option selected value="ACTIVED">Hiển thị</option>
-										<option value="DISABLED">Không hiển thị</option>
-									</select>
-								</div>
-								<div class="form-group">
 									<label for="">Img</label> 
-									<input class="form-control" @change="chooseFile($event,0)" :value="input" type="file" name="fileImage" />
+									<input type="text" v-model="productDtoAdd.img" class="form-control" required="required" />
+									<!-- <input class="form-control" @change="chooseFile($event,0)" :value="input" type="file" name="fileImage" /> -->
 								</div>
-								<div class="form-group d-flex justify-content-center">
+								<!-- <div class="form-group d-flex justify-content-center">
 									<img id="imageAdd" class="imageAdd" :src="productDtoAdd.img" style="height: 200px; width: 200px"/>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -198,8 +169,8 @@
 				</div>
 			</div>
 		</div>
-		<div v-for="item in product" v-bind:key="item.id" >
-			<div class="modal" :id="`edit`+item.id">
+		<div v-for="item in product" v-bind:key="item._id" >
+			<div class="modal" :id="`edit`+item._id">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<form 
@@ -215,7 +186,7 @@
 								<div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
 									<div class="form-group">
 										<label for="">Id</label> 
-										<input type="text" id="idEdit" v-model="productDto.id" class="form-control" readonly="readonly" />
+										<input type="text" id="idEdit" v-model="productDto._id" class="form-control" readonly="readonly" />
 										<div class="text-danger"></div>
 									</div>
 									<div class="form-group">
@@ -225,20 +196,12 @@
 									</div>
 									<div class="form-group">
 										<label for="">Danh mục</label> 
-										<select v-model="productDto.categoryName" class="form-control form-select" id="categoryEdit" required="required">
-											
-												<option v-for="item in categories" :key="item.id" :value="item.name">{{item.name}}</option>
-										
-										</select>
+										<input type="text" id="nameEdit" v-model="productDto.category" class="form-control" required="required" />
 										<div class="text-danger"></div>
 									</div>
 									<div class="form-group">
 										<label for="">Thương hiệu</label> 
-										<select v-model="productDto.brandName" class="form-control form-select" id="brandEdit" required="required">
-											
-												<option v-for="item in brands" :key="item.id" :value="item.name">{{item.name}}</option>
-											
-										</select>
+										<input type="text" id="nameEdit" v-model="productDto.brand" class="form-control" required="required" />
 										<div class="text-danger"></div>
 									</div>
 									<div class="form-group">
@@ -262,20 +225,13 @@
 										<div class="text-danger"></div>
 									</div>
 									<div class="form-group">
-										<label for="">Trạng thái</label>
-										<select v-model="productDto.state" class="form-control form-select" required="required">
-											<option selected value="ACTIVED">Hiển thị</option>
-											<option value="DISABLED">Không hiển thị</option>
-										</select>
-									</div>
-									<div class="form-group">
 										<label for="">Img</label> 
-										<input hidden="" type="text" id="thumbnailEdit" v-model="productDto.img"> 
-										<input class="form-control" @change="chooseFile($event,1)" type="file" name="fileImage" />
+										<input type="text" v-model="productDto.img" class="form-control" required="required" />
+										<!-- <input class="form-control" @change="chooseFile($event,1)" type="file" name="fileImage" /> -->
 									</div>
-									<div class="form-group d-flex justify-content-center">
+									<!-- <div class="form-group d-flex justify-content-center">
 										<img id="imageAdd" class="imageAdd" :src="productDto.img" style="height: 200px; width: 200px"/>
-									</div>
+									</div> -->
 								</div>
 							</div>
 							<div class="modal-footer">
@@ -286,7 +242,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="modal delete-new" :id="'delete'+item.id">
+			<div class="modal delete-new" :id="'delete'+item._id">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -298,7 +254,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
-							<button @click="clickDeleteProduct(item.id)" class="btn btn-primary">Xác nhận</button>
+							<button @click="clickDeleteProduct(item._id)" class="btn btn-primary">Xác nhận</button>
 						</div>
 					</div>
 				</div>
@@ -312,20 +268,16 @@
 import { showSuccessToast, showErrorToastMess } from "../../../assets/web/js/main";
 import { formatCurrency } from "../../../assets/admin/js/format-admin";
 import productApi from "../../../service/Product";
-import brandsApi from "../../../service/Brands";
-import categoriesApi from "../../../service/Categories";
 export default {
     data(){
         return {
 			product: [],
-			productDto:[],
-			productDtoAdd:[],
+			productDto:{},
+			productDtoAdd:{},
 			currentPage:'',
 			totalPage:'',
-			formSearchProduct: [],
+			search_text:'',
 			paginationButtons:[],
-			brands:[],
-			categories:[],
 			input: '',
 			showPreload: false
         }
@@ -335,30 +287,18 @@ export default {
 		async addProduct(productDtoAdd){
 			try{
 				this.showPreload = true
-				const formData = new FormData();
-				if(this.imgDto != "" || this.imgDto != null)
-					productDtoAdd.img = this.imgDto
-				formData.append('fileImage', productDtoAdd.img);
-				formData.append('name', productDtoAdd.name);
-				formData.append('categoryName', productDtoAdd.categoryName);
-				formData.append('brandName', productDtoAdd.brandName);
-				formData.append('price', productDtoAdd.price);
-				formData.append('discount', productDtoAdd.discount);
-				formData.append('quantity', productDtoAdd.quantity);
-				formData.append('description', productDtoAdd.description);
-				formData.append('state', productDtoAdd.state);
-				
-				const res = await productApi.addProduct(formData)
-				if(res.success){
+				console.log(productDtoAdd)
+				const res = await productApi.addProduct(productDtoAdd)
+				if(res.status){
 					showSuccessToast("Thêm sản phẩm thành công !!")
 					this.productDtoAdd=[]
 					this.imgDto=''
 				}
-				if(res.error){
+				else{
 					showErrorToastMess("Thêm sản phẩm thất bại !!")
 				}
 				this.showPreload = false
-				await this.getListProduct(this.currentPage, this.formSearchProduct)
+				await this.getListProduct(this.currentPage, this.search_text)
 				bootstrap.Modal.getInstance(document.getElementById("add")).hide()
 			
 			}
@@ -371,8 +311,8 @@ export default {
 
 		async getEditProduct(id){
 			try{
-				const res = await productApi.getEditProduct(id)
-				this.productDto = res 
+				const res = await productApi.getProductById(id)
+				this.productDto = res.data 
 			}
 			catch(err){
 				showErrorToastMess("Lấy danh sách sản phẩm thất bại !!")
@@ -383,30 +323,17 @@ export default {
 		async clickEditProduct(productDto){
 			try{
 				this.showPreload = true
-				const formData = new FormData();
-				if(this.imgDto != "" && this.imgDto != null)
-					productDto.img = this.imgDto
-				formData.append('fileImage', productDto.img);
-				formData.append('id', productDto.id);
-				formData.append('name', productDto.name);
-				formData.append('categoryName', productDto.categoryName);
-				formData.append('brandName', productDto.brandName);
-				formData.append('price', productDto.price);
-				formData.append('discount', productDto.discount);
-				formData.append('quantity', productDto.quantity);
-				formData.append('description', productDto.description);
-				formData.append('state', productDto.state);
 				
-				const res = await productApi.postEditProduct(formData)
-				if(res.success){
+				const res = await productApi.postEditProduct(productDto)
+				if(res.status){
 					showSuccessToast("Chỉnh sửa sản phẩm thành công !!")
-					await this.getListProduct(this.currentPage, this.formSearchProduct)
+					await this.getListProduct(this.search_text)
 				}
 				if(res.error){
 					showErrorToastMess("Chỉnh sửa sản phẩm thất bại !!")
 				}
 				this.showPreload = false
-				bootstrap.Modal.getInstance(document.getElementById("edit"+productDto.id)).hide()
+				bootstrap.Modal.getInstance(document.getElementById("edit"+productDto._id)).hide()
 			
 			}
 			catch(error){
@@ -420,8 +347,8 @@ export default {
 			try{
 				bootstrap.Modal.getInstance(document.getElementById('delete' + id)).hide()
 				const res = await productApi.deleteProduct(id)
-				if(res.success){
-					await this.getListProduct(this.currentPage,this.formSearchProduct)
+				if(res.status){
+					await this.getListProduct(this.currentPage,this.search_text)
 					showSuccessToast("Xóa sản phẩm thành công !!")
 				}
 				if(res.error){
@@ -433,22 +360,19 @@ export default {
 				showErrorToastMess("Có lỗi xảy ra !!")
 			}
 		},
-		async getListProduct(currentPage, formSearchProduct){
+		async getListProduct( search_text){
 			try{
-				const res = await productApi.getListProduct(currentPage,formSearchProduct)
+				const res = await productApi.getListProduct(search_text)
 
-				this.product = res.data.listProduct.content
-				this.currentPage = res.data.currentPage
-				this.totalPage = res.data.listProduct.totalPages
-				this.setupPagination(this.totalPage)
+				this.product = res.data
 			}
 			catch(err){
 				console.log("Err: "+err); showErrorToastMess("Lấy danh sách sản phẩm thất bại !!")
 			}
 		},
 
-		async search(currentPage,formSearchProduct){
-			await this.getListProduct(currentPage, formSearchProduct)
+		async search(search_text){
+			await this.getListProduct( search_text)
 		},
 		async stateProduct(id,state){
 			try{
@@ -461,7 +385,7 @@ export default {
 				{
 					showSuccessToast("Hiển thị sản phẩm thành công !!")
 				}
-				await this.getListProduct(this.currentPage, this.formSearchProduct)
+				await this.getListProduct( this.search_text)
 			}
 			catch(err){
 				console.error("Lỗi: ", err);
@@ -480,57 +404,36 @@ export default {
 			}
 		},
 
-		async getBrands(){
-			try {
-				const res = await brandsApi.getAllBrands()
-				this.brands = res.data.brands
-			}
-			catch(err){
-				console.log(err)
-			}
-		},
+        // PaginationButton (page) {
+		// 	return {
+		// 		page,
+		// 		isActive: this.currentPage === page,
+		// 		handleClick: async () => {
+		// 			await this.loadProduct(page);
+		// 		},
+		// 	};
+		// },
+    	// setupPagination (totalPage) {
+		// 	this.paginationButtons = [];
 
-		async getCategories(){
-			try {
-				const res = await categoriesApi.getAllCategories()
-				this.categories = res.data.categories
-			}
-			catch(err){
-				console.log(err)
-			}
-		},
-        PaginationButton (page) {
-			return {
-				page,
-				isActive: this.currentPage === page,
-				handleClick: async () => {
-					await this.loadProduct(page);
-				},
-			};
-		},
-    	setupPagination (totalPage) {
-			this.paginationButtons = [];
-
-			let page_count = totalPage;
-			for (let i = 1; i < page_count + 1; i++) {
-				this.paginationButtons.push(i);
-			}
-		},
-		async loadProduct(page) {
-			try{
-				const res = await productApi.getListProduct(page,this.formSearchProduct)
-				this.product = res.data.listProduct.content
-				this.currentPage = res.data.currentPage
-				this.totalPage = res.data.listProduct.totalPages
-			}
-			catch(err){
-				console.log(err)
-			}
-    	},
+		// 	let page_count = totalPage;
+		// 	for (let i = 1; i < page_count + 1; i++) {
+		// 		this.paginationButtons.push(i);
+		// 	}
+		// },
+		// async loadProduct() {
+		// 	try{
+		// 		const res = await productApi.getListProduct(this.search_text)
+		// 		this.product = res.data.listProduct.content
+		// 		this.currentPage = res.data.currentPage
+		// 		this.totalPage = res.data.listProduct.totalPages
+		// 	}
+		// 	catch(err){
+		// 		console.log(err)
+		// 	}
+    	// },
 		init(){
-			this.getBrands()
-			this.getCategories()
-			this.getListProduct(this.currentPage,this.formSearchProduct)
+			this.getListProduct(this.search_text)
 		}
     },
 	mounted(){
@@ -540,7 +443,7 @@ export default {
 			sessionStorage.setItem("auth",true)
 		}
 		else
-			this.init()
+			this.getListProduct()
 	}
 }
 </script>

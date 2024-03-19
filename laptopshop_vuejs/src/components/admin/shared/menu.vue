@@ -15,7 +15,7 @@
 				<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 					<!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 					<label for="" style="color: #fff;">QUẢN LÝ</label>
-					<li class="nav-item" id="">
+					<!-- <li class="nav-item" id="">
 						<router-link to="/admin/category" class="nav-link">
 							<i class="nav-icon fa-solid fa-bars"></i>
 							DANH MỤC
@@ -26,7 +26,7 @@
 							<i class="nav-icon fa-solid fa-bars"></i>
 							THƯƠNG HIỆU
 						</router-link>
-					</li>
+					</li> -->
 					<li class="nav-item">
 						<router-link to="/admin/product" class="nav-link">
 							<i class="nav-icon fa-solid fa-bars"></i>
@@ -45,7 +45,7 @@
 							NGƯỜI DÙNG
 						</router-link>
 					</li>
-					<li class="nav-item">
+					<!-- <li class="nav-item">
 						<router-link to="/admin/news" class="nav-link">
 							<i class="nav-icon fa-solid fa-bars"></i>
 							TIN TỨC
@@ -63,7 +63,7 @@
 							<i class="nav-icon fa-solid fa-bars"></i>
 							SẢN PHẨM
 						</router-link>
-					</li>
+					</li> -->
 					<!-- <label for="" style="color: #fff;">Quản trị</label>
 					<li class="nav-item">
 						<router-link to="/admin" class="nav-link">
@@ -91,21 +91,14 @@ export default {
 	methods: {
 		async logout(){
 			try{
-				axios.defaults.headers.Authorization = `Bearer ${sessionStorage.getItem("jwtToken")}`;
-				const res = await userApi.logout(sessionStorage.getItem("jwtToken"))
-					
-				if(res.responseCode == "0")
-				{
 					window.location.href = "/auth/sign-in"
 					sessionStorage.removeItem("login"),
 					sessionStorage.removeItem("jwtToken"),
 					sessionStorage.removeItem("refreshToken"),
 					sessionStorage.removeItem("role"),
-					sessionStorage.removeItem("img"),
 					sessionStorage.removeItem("name"),
 					sessionStorage.removeItem("auth"),
 					sessionStorage.setItem("logout",true)
-				}
 			}
 			catch(err){
 				console.log("err: "+err)

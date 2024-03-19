@@ -45,9 +45,9 @@ export function getStateCheckoutDisplay(stateCheckout) {
 };
 export function getStateOrderDisplay(stateOrder) {
     const stateMap = {
-        0: "Đang xử lý",
-        1: "Đang giao hàng",
-        2: "Đã xác nhận",
+        0: "Chờ xác nhận",
+        1: "Đã xác nhận",
+        2: "Đang giao hàng",
         3: "Đã nhận",
         4: "Đã huỷ"
     };

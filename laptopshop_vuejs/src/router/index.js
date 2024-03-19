@@ -60,16 +60,6 @@ const router = createRouter({
           component: () => import('../components/web/contact/index.vue')
         },
         {
-          path: '/news',
-          name: 'news',
-          component: () => import('../components/web/news/index.vue')
-        },
-        {
-          path: '/news/detail',
-          name: 'detail',
-          component: () => import('../components/web/news/detail.vue')
-        },
-        {
           path: '/cart',
           name: 'cart',
           component: () => import('../components/web/cart/index.vue')
@@ -113,21 +103,6 @@ const router = createRouter({
           component: () => import('../components/admin/user/index.vue')
         },
         {
-          path: '/admin/news',
-          name: 'List_news',
-          component: () => import('../components/admin/new/index.vue')
-        },
-        {
-          path: '/admin/brand',
-          name: 'List_brand',
-          component: () => import('../components/admin/brand/index.vue')
-        },
-        {
-          path: '/admin/category',
-          name: 'List_category',
-          component: () => import('../components/admin/category/index.vue')
-        },
-        {
           path: '/admin/order',
           name: 'List_order',
           component: () => import('../components/admin/order/index.vue')
@@ -136,21 +111,6 @@ const router = createRouter({
           path: '/admin/product',
           name: 'List_product',
           component: () => import('../components/admin/product/index.vue')
-        },
-        {
-          path: '/admin/revenue/categories',
-          name: 'List_revenue_categories',
-          component: () => import('../components/admin/revenue/index.vue')
-        },
-        {
-          path: '/admin/revenue/products',
-          name: 'List_revenue_products',
-          component: () => import('../components/admin/revenue/revenue-products.vue')
-        },
-        {
-          path: '/admin',
-          name: 'List_admin',
-          component: () => import('../components/admin/user/admin.vue')
         },
       ]
     },

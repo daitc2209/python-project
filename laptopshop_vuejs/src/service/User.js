@@ -4,18 +4,20 @@ import axios from "axios"
 const userApi = {
 
     signUp: async (data)=>{
-        try {
-            const response = await axios({
-                method: "post",
-                url: `http://127.0.0.1:8000/api/v1/users/signup`,
-                data: data,
-            });
-        if (response.status == 200) {
-            return true
-        }
-        } catch (err) {
-            console.log(err.response);
-        }
+        // try {
+        //     const response = await axios({
+        //         method: "post",
+        //         url: `http://127.0.0.1:8000/api/v1/users/signup`,
+        //         data: data,
+        //     });
+        // if (response.status == 200) {
+        //     return true
+        // }
+        // } catch (err) {
+        //     console.log(err.response);
+        // }
+        const res = await axios.post('users/signup',data) 
+        return res.data
     },
 
     login: async(data)=>{
@@ -27,13 +29,8 @@ const userApi = {
         const params = new URLSearchParams();
         params.append("username", data.username);
         params.append("password", data.password);
-        const response = await axios({
-            method: "post",
-            url: `http://127.0.0.1:8000/api/v1/users/token`,
-            data: params,
-            config,
-        });
-        return response
+        const res = await axios.post('users/token', params,config,);
+        return res
     },
 
     getInfo: async ()=>{
@@ -53,11 +50,6 @@ const userApi = {
 
     postSendMailCancelled: async (codeOrder)=>{
         const res = await axios.post(`purchase-history/send-mail-cancelled?codeOrder=${codeOrder}`)
-        return res.data
-    },
-
-    findByRangeDay: async (data)=>{
-        const res = await axios.post(`purchase-history/range-day`,data)
         return res.data
     },
 
@@ -82,47 +74,29 @@ const userApi = {
     },
 
     // Admin
-    getListUserAdmin: async (page, fullname,sex,address,email,stateUser,authType)=>{
-        const res = await axios.get('admin/user',
-            {params: {fullname:fullname,sex:sex,address:address,
-                    email:email,stateUser:stateUser,authType:authType,page:page}}) 
-        return res.data
-    },
-
-    getListAdmin: async (page, fullname,sex,address,email,stateUser,authType)=>{
-        const res = await axios.get('admin/user/getAdmin',
-            {params: {fullname:fullname,sex:sex,address:address,
-                    email:email,stateUser:stateUser,authType:authType,page:page}}) 
+    getListUserAdmin: async (page, search_text)=>{
+        const res = await axios.get('admin/get_users',
+            {params: {search_text:search_text}}) 
         return res.data
     },
 
     addUser: async (data)=>{
-        const res = await axios.post("admin/user/add",data)
+        const res = await axios.post("admin/create_user",data)
         return res.data
     },
 
     getEditUser: async (id)=>{
-        const res = await axios.get("admin/user/edit/"+id)
+        const res = await axios.get("admin/"+id)
         return res.data
     },
 
     postEditUser: async (data)=>{
-        const res = await axios.post("admin/user/edit",data)
-        return res.data
-    },
-
-    lockUser: async (id)=>{
-        const res = await axios.post("admin/user/lock?id="+id)
-        return res.data
-    },
-
-    unlockUser: async (id)=>{
-        const res = await axios.post("admin/user/unlock?id="+id)
+        const res = await axios.patch("admin/update",data)
         return res.data
     },
 
     deleteUser: async (id)=>{
-        const res = await axios.post("admin/user/delete?id="+id)
+        const res = await axios.delete("admin/delete/"+id)
         return res.data
     },
 }
