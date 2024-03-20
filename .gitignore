@@ -34,3 +34,5 @@ practice
 database-data
 laptopshop_vuejs/node_modules
 laptopshop_vuejs/.vscode/*
+
+*.pem
