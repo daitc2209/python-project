@@ -193,35 +193,17 @@ export default {
         }
     },
 	methods:{
-		chooseFile(e){
-			const file = e.target.files[0];
-			console.log(file)
-			if (file) {
-				this.url = URL.createObjectURL(file);
-				this.imgDto = file
-			}
-		},
 		async editProfile(profileEdit) {
 			try{
 				this.showPreload = true
-				// const formData = new FormData();
-				// console.log(this.imgDto)
-				// if (this.imgDto !== null || this.imgDto !== "")
-				// 	this.profileEdit.img = this.imgDto
-
-				// formData.append('user_patch', JSON.stringify({
-				// 	name: this.profile.name,
-				// 	address: this.profile.address,
-				// 	email: this.profile.email
-				// }));
 				console.log(profileEdit)
 				const res = await userApi.postProfile(profileEdit)
 				this.getProfile()
-				if(res.success)
+				if(res.status)
 				{
 					showSuccessToast("Sửa thông tin thành công")
 				}
-				if(res.error)
+				if(!res.status)
 					showErrorToastMess("Email đã được liên kết với tài khoản khác.")
 				
 				this.showPreload = false
@@ -248,26 +230,7 @@ export default {
 			};
 		},
 		getGenderDisplay,
-		onDragover(e){
-			e.preventDefault();
-			this.isDragging = true;
-			e.dataTransfer.dropEffect = "copy"
-		},
-		onDragleave(e){
-			e.preventDefault();
-			this.isDragging = false;
-		},
-		onDrop(e){
-			e.preventDefault();
-			this.isDragging = false;
-			const file = e.dataTransfer.files[0];
-			console.log("file new: "+file)
-			if (file) {
-				this.url = URL.createObjectURL(file);
-				this.imgDto = file
-				console.log("url: ", this.imgDto);
-			}
-		},
+		
 		clearPasswordMismatchError() {
 			this.error = '';
 		},

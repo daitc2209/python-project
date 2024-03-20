@@ -79,9 +79,9 @@ const router = createRouter({
           name: 'bill',
           component: () => import('../components/web/checkout/bill.vue')
         },
-        {
-          path: '/favour',
-          name: 'favour',
+        { 
+          path: '/favor',
+          name: 'favor',
           component: () => import('../components/web/favour/index.vue')
         },
       ]

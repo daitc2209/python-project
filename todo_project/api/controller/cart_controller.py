@@ -14,7 +14,7 @@ async def get_carts(user: User ):
             cart['img'] = product['img']
             cart['discount'] = product['discount']
             cart['quantity_in_stock'] = product['quantity']
-            cart['totalPrice'] = cart['price']*cart['amount'] - (cart['price']*cart['amount']*cart['discount']/100)
+            cart['totalPrice'] = int(cart['price'])*int(cart['amount']) - (int(cart['price'])*int(cart['amount'])*int(cart['discount'])/100)
             list_cart.append(cart)
     
     return list_cart

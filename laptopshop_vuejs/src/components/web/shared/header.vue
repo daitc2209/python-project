@@ -30,7 +30,7 @@
                         </li>
 				</ul>
 				<div class="header__navbar-item header__navbar-user">
-					<router-link to="/favour"><i class="header__navbar-item-link fa-solid fa-heart"></i> <span style="color:#000; font-weight: 600; padding-left:4px; cursor: pointer;">YÊU THÍCH</span></router-link>
+					<div @click="click1()"><i class="header__navbar-item-link fa-solid fa-heart"></i> <span style="color:#000; font-weight: 600; padding-left:4px; cursor: pointer;">YÊU THÍCH</span></div>
 				</div>
 			</template >
 			<div class="header__navbar-item header__navbar-user">
@@ -55,6 +55,9 @@ export default {
 	methods: {
 		click(){
 			this.$router.push("/cart")
+		},
+		click1(){
+			this.$router.push("/favor")
 		},
 		async logout(){
 			try{

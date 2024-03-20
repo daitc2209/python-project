@@ -40,11 +40,11 @@ async def get_product(Id):
     return product
 
 async def post(product):
-    discount = int(product['discount'])  
+    discount = int(product.discount)  
     if discount > 100:
-        product['discount'] = 100
+        product.discount = 100
     if discount < 0:
-        product['discount'] = 0
+        product.discount = 0
     inserted_id = db.insert_one(dict(product)).inserted_id
     return {"_id":inserted_id}
 
