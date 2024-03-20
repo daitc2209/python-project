@@ -30,7 +30,7 @@ services:
     #   - -c
     #   - while true; do sleep 2; done
     ports:
-      - "5173:5173"
+      - "80:5173"
     volumes:
       - ./laptopshop_vuejs:/app
       - /app/node_modules/
