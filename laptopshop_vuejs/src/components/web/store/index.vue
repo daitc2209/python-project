@@ -116,7 +116,6 @@ export default {
         }
       }catch(err){
         showErrorToastMess('Thêm vào giỏ hàng thất bại')
-        this.$router.push("/auth/sign-in")
       }
     },
     async addToFavour(id){

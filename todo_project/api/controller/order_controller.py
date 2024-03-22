@@ -23,7 +23,7 @@ async def post_order(carts: list, data:dict, user:User):
     insert_id = myOrder.insert_one(dict(order)).inserted_id
     for cart in carts:
         product = myProduct.find_one({"_id": ObjectId(cart['product_id'])})
-        product['quantity'] -= cart['amount']
+        product['quantity'] = int(product['quantity']) - cart['amount']
         myProduct.update_one({"_id": product['_id']}, {"$set":product})
         orderdetail = Order_details(
             order_id=str(insert_id),product_id=cart['product_id'],amount=cart['amount'],
@@ -83,6 +83,11 @@ async def total_order(user:User):
 async def cancelled_my_order(id:str, status:int, user:User):
     order = myOrder.find_one({"_id": ObjectId(id)})
     order["state_order"] = 4
+    order_detals = myOrderDetail.find({"order_id":id})
+    for od in order_detals:
+        p = myProduct.find_one({"_id": ObjectId(str(od['product_id']))})
+        p['quantity'] += od['amount']
+        myProduct.update_one({'_id': p['_id']},{'$set':p})
     myOrder.update_one({'_id':order['_id']},{'$set':order})
     list_order = await get_my_order(status,user)
     return list_order

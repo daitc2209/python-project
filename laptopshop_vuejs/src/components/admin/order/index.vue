@@ -54,7 +54,7 @@
 						</div>
 						<div class="card-status">
 							<h4 class="card-label">Đã xác nhận</h4>
-							<p class="mb-2 pb-1"><strong>{{ orderStatus.order_confirmed }}</strong> Đơn</p>
+							<p class="mb-2 pb-1"><strong>{{ orderStatus.order_confirm }}</strong> Đơn</p>
 						</div>
 					</div>
 					<div class="card-item">
@@ -63,7 +63,7 @@
 						</div>
 						<div class="card-status">
 							<h4 class="card-label">Đang vận chuyển</h4>
-							<p class="mb-2 pb-1"><strong>{{ orderStatus.order_delivering }}</strong> Đơn</p>
+							<p class="mb-2 pb-1"><strong>{{ orderStatus.order_delivery }}</strong> Đơn</p>
 						</div>
 					</div>
 					<div class="card-item">
@@ -121,8 +121,8 @@
 										<td class="td7"><h6>{{getStateOrderDisplay(item.state_order)}}</h6></td>
 										<td class="td8">
 											<a data-bs-toggle="modal" :data-bs-target="'#see'+item._id" class="btn btn-sm btn-primary mr-2"><i class="fa-solid fa-eye"></i></a> 
-											<a v-if="item.state_order == 'CANCELLED' || item.state_order == 'RECEIVED'" class="btn btn-sm btn-secondary">Status</a>
-											<a v-if="item.state_order != 'CANCELLED' && item.state_order != 'RECEIVED'" data-bs-toggle="modal" :data-bs-target="'#vertify'+item._id" @click="getOrder(item._id)" class="btn btn-sm btn-danger">Status</a>
+											<a v-if="item.state_order == 4 || item.state_order == 3" class="btn btn-sm btn-secondary">Status</a>
+											<a v-if="item.state_order != 4 && item.state_order != 3" data-bs-toggle="modal" :data-bs-target="'#vertify'+item._id" @click="getOrder(item._id)" class="btn btn-sm btn-danger">Status</a>
 										</td>
 										<div class="modal see-order" :id="'see'+item._id">
 											<div class="modal-dialog">
@@ -280,7 +280,13 @@ export default {
 			totalPage:'',
 			paginationButtons:[],
 			orderDto:{},
-			orderStatus:{},
+			orderStatus:{
+				order_cancelled:0,
+				order_received:0,
+				order_delivery:0,
+				order_confirm:0,
+				order_pending:0
+			},
 			showPreload: false
         }
     },

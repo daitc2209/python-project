@@ -291,7 +291,7 @@ export default {
 				const res = await productApi.addProduct(productDtoAdd)
 				if(res.status){
 					showSuccessToast("Thêm sản phẩm thành công !!")
-					this.productDtoAdd=[]
+					this.productDtoAdd={}
 					this.imgDto=''
 				}
 				else{

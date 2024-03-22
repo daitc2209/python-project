@@ -8,13 +8,14 @@ from api.routes.favor import router_favor
 
 origins = [
     "http://127.0.0.1:5173",
+    "http://127.0.0.1:80",
     "http://localhost:5173",
-    "http://localhost",
+    "http://localhost:80",
     "http://technoshop.id.vn",
     "http://technoshop.id.vn:80",
     "http://34.203.11.156:80",
     "http://34.203.11.156",
-    "*"
+    "*" 
 ]
 
 app = FastAPI()

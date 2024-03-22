@@ -21,13 +21,17 @@ async def get_carts(user: User ):
 
 async def add_to_carts(user: User, product_id: str, num: int):
     cart = myCart.find_one({"user_id": str(user['_id']), "product_id": product_id})
-    if cart:
-        cart['amount'] += num
-        myCart.update_one({"_id": cart['_id']}, {"$set": cart})
-    else:
-        new_cart = Cart(user_id=str(user['_id']), product_id=product_id, amount=num)
-        inserted_id = myCart.insert_one(dict(new_cart)).inserted_id
-        cart = myCart.find_one({"_id": inserted_id})
+    product = myProduct.find_one({"_id": ObjectId(product_id)})
+    if int(product['quantity']) > 0:
+        if cart:
+            if (int(product["quantity"]) - int(cart["amount"]) - num) > 0:
+                cart['amount'] += num
+                myCart.update_one({"_id": cart['_id']}, {"$set": cart}) 
+            else: return cart   
+        else:
+            new_cart = Cart(user_id=str(user['_id']), product_id=product_id, amount=num)
+            inserted_id = myCart.insert_one(dict(new_cart)).inserted_id
+            cart = myCart.find_one({"_id": inserted_id})
     return cart
 
     
