@@ -1,5 +1,5 @@
 pipeline {
-    agent {label "docker-agent"}
+    agent any
 
     environment {
         dockerImageName1 = 'daitc2209/test-jenkins'
