@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {label "docker-agent"}
 
     environment {
         dockerImageName1 = 'daitc2209/test-jenkins'
@@ -45,8 +45,8 @@ pipeline {
             steps {
                 echo 'Pushing Docker images...'
                 script {
-                    withCredentials([usernamePassword(credentialsId: dockerHubCredentialsId, usernameVariable: ${DOCKER_USERNAME}, passwordVariable: ${DOCKER_PASSWORD})]) {
-                        bat "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                    withCredentials([usernamePassword(credentialsId: dockerHubCredentialsId, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        bat "docker login -u ${env.DOCKER_USERNAME} -p ${env.DOCKER_PASSWORD}"
                         bat "docker push ${dockerImageName1}:${dockerImageName1Version}"
                         bat "docker push ${dockerImageName2}:${dockerImageName2Version}"
                     }
