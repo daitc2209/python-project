@@ -15,7 +15,9 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 script {
-                    bat 'git clone https://github.com/daitc2209/python-project.git'
+                    echo 'Cloning repository...'
+                    cleanWs()
+                    checkout scm
                 }
             }
         }
